@@ -47,7 +47,7 @@
                   </a>
                 </div>
                 <div class="media-body">
-                  <p>{{ m.first_name }} { {m.last_name }}<br />
+                  <p>{{ m.first_name }} {{m.last_name }}<br />
                     <a href="{{ url_for('user_app.profile', username= m.username) }}">@{{ m.username }}</a>
                   </p>
                 </div>
