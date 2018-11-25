@@ -1,0 +1,126 @@
+{% macro render_feed_message(message) %}
+<div class="media">
+
+  <div class="media-left">
+
+    <a href="{{ url_for('user_app.profile', username=message.fromUser.username) }}">
+      <img class="media-object" src="../{{ message.fromUser.profile_imgsrc('sm') }}" width="50" height="50" alt="{{ message.fromUser.username }}">
+    </a>
+
+  </div> <!-- media-left -->
+  <div class="media-body">
+
+    <div class="media-user-pane">
+      <span class="media-user"><a href="{{ url_for('user_app.profile', username=message.fromUser.username) }}">{{ message.fromUser.first_name }} {{ message.fromUser.last_name }}</a></span>
+      {% if message.toUser %}
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="media-user"><a href="{{ url_for('user_app.profile', username=message.toUser.username) }}">{{ message.toUser.first_name }} {{ message.toUser.last_name }}</a></span>
+      {% endif %}
+    </div>
+
+    <div class="media-text">{{ message.linkifyText|safe }}</div>
+
+
+
+    {% if message.image %}
+    <div class="media-images">
+
+        <img class="img-thumbnail" src="../{{ message.post_imgsrc('xlg') }}" width="200" height="200" alt="" />
+      
+
+    </div>
+    {% endif %}
+
+
+
+    <div class="media-footer">
+      
+      <a href="{{ url_for('feed_app.message', message_id=message.id) }}" class="media-timestamp">{{ message.humanTimeStamp }}</a>
+      
+      {% if message.fromUser.username == session.username %}
+         <a href="{{ url_for('feed_app.delete_post', post_id = message.id)}}">Delete Post </a> -
+      {% endif %}  
+      <a href="{{ url_for('feed_app.message', message_id=message.id) }}#comment-form">Comment</a>
+     
+      {% if message.comments %}({{ message.comments.count() }}){% endif %}
+       - <a href="{{ url_for('feed_app.like_message', message_id=message.id) }}">Like</a>
+      {% if message.likes %}
+      
+     
+      <div class="media-footer-likes">
+          <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+          {% set comma = joiner(", ") %}
+          {% for like in message.likes %}{{ comma() }}
+          <a href="{{ url_for('user_app.profile', username=like.fromUser.username) }}">{{ like.fromUser.username }}
+
+          </a>
+          {% endfor %}
+      </div>
+     
+      {% endif %}
+    </div> <!-- media-footer -->
+  </div> <!-- media-body -->
+</div> <!-- media -->
+{% endmacro %}
+
+
+{% macro render_navigation(pagination, endpoint) %}
+<nav>
+    <ul class="pagination pagination-home">
+      {% for page in pagination.iter_pages() %}
+        {% if page %}
+          {% if page != pagination.page %}
+            <li>
+              <a href="{{ url_for(endpoint, page = page )}}">
+                {{ page }}
+              </a>
+
+            </li>
+
+          {% else %}
+            <li class="active">
+              <a> {{ page }}
+              <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          {% endif %}
+
+        {% else %}
+          <span class=ellipsis>…</span>
+
+        {% endif %}
+      {% endfor %}
+        
+    </ul>
+</nav>
+{% endmacro %}
+
+{% macro render_navigation_profile(pagination, endpoint, username) %}
+<nav>
+    <ul class="pagination pagination-home">
+      {% for page in pagination.iter_pages() %}
+        {% if page %}
+          {% if page != pagination.page %}
+            <li>
+              <a href="{{ url_for(endpoint, username = username ,viewPage = page )}}">
+                {{ page }}
+              </a>
+
+            </li>
+
+          {% else %}
+            <li class="active">
+              <a> {{ page }}
+              <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          {% endif %}
+
+        {% else %}
+          <span class=ellipsis>…</span>
+
+        {% endif %}
+      {% endfor %}
+        
+    </ul>
+</nav>
+{% endmacro %}

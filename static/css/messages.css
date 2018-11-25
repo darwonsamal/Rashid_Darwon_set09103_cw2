@@ -1,0 +1,109 @@
+
+/* private-messages area */
+#private-messages {
+    display: block;
+    margin: 0 auto;
+  
+  }
+  
+
+#w {
+    display: block;
+    width: 700px;
+    margin: 0 auto;
+    padding-top: 35px;
+    background-color: white;
+
+  }
+
+#container {
+  display: block;
+  width: 85%;
+  color: black;
+  background-color: white;
+  padding: 14px 20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+   box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+
+}
+
+
+  .line{
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #private-messages .private-message, ul .private-message, ul ul .private-message {
+    display: block;
+    position: relative;
+     padding-left: 65px;
+     border-top: 1px solid #ddd;
+   }
+  
+  #private-messages .private-message .avatar  {
+     position: absolute; top: 8px; left: 0;
+   }
+  
+  #private-messages .private-message .avatar img {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.44);
+    -moz-box-shadow: 1px 1px 2px rgba(0,0,0,0.44);
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.44);
+    -webkit-transition: all 0.4s linear;
+    -moz-transition: all 0.4s linear;
+    -ms-transition: all 0.4s linear;
+    -o-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+  
+  
+  #private-messages .private-message .private-message-content-right {
+    text-align: right;
+    padding: 0px 3px; padding-bottom: 12px; padding-top: 8px;
+  }
+  
+  #private-messages .private-message .private-message-content-right header {
+     text-align: right;
+     font-size: 1.3em; display: block; margin-bottom: 8px;
+  }
+  #private-messages .private-message .private-message-content-right header .pubdate {
+    text-align: right;
+    color: black;
+    
+  }
+  #private-messages .private-message .private-message-content-right header .userlink {
+    text-align: right;
+    font-weight: bold;
+  }
+  
+  
+  #private-messages .private-message .private-message-content-left {
+      padding: 0px 3px; padding-bottom: 12px; padding-top: 8px;
+    }
+    
+    #private-messages .private-message .private-message-content-left header {
+       font-size: 1.3em; display: block; margin-bottom: 8px;
+    }
+    #private-messages .private-message .private-message-content-left header .pubdate {
+        
+      color: black;
+      
+    }
+    #private-messages .private-message .private-message-content-left header .userlink {
+      font-weight: bold;
+    }
+    
+  
+  #private-messages .private-message .replies {
+     margin-bottom: 7px;
+  }
+  
+  
+.private-message-textarea{
+  width: 70%;
+}

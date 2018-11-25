@@ -1,0 +1,81 @@
+{% extends "base.html" %} 
+
+{% block title %}Home{% endblock %} 
+
+{% block header %}<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %} 
+
+{% include "navbar.html" %}
+
+<div class="row">
+
+  <div class="col-md-3">
+
+  </div> <!-- col-md-3 -->
+  
+  <div class="col-md-9">
+    
+    <div class="row">
+      
+      <div class="col-md-9">
+      
+        <!-- post text input -->
+        <div class="row feed-message">
+          
+          {% if error %}
+
+          <div class="alert alert-danger" role="alert">{{ error }}</div>
+
+          {% endif %}
+      
+          {% from "_formhelpers.html" import render_field %}
+
+          <form method="POST" action="{{ url_for('feed_app.add_message')}}" role="form" enctype="multipart/form-data">
+      
+            {{ form.hidden_tag() }}
+      
+            <div class="form-group">
+
+              {{ form.image(class='form-control') }}
+              <br>
+              {{ form.post(class='form-control', rows=3, placeholder = 'Say something!') }}
+
+            </div>
+            
+            <input type="hidden" name="toUser" value="{{ user.username }}" />
+
+            <button type="submit" class="btn btn-primary pull-right">Post</button>
+      
+          </form>
+        </div>
+
+        <!-- post text input -->
+
+        {% from "feed/_feed_messages.html" import render_feed_message %}
+
+        {% for m in feed_messages.items %}
+
+          {{ render_feed_message(m.message) }}
+
+        {% endfor %}
+
+        </div> <!-- row -->
+        
+      </div> <!-- col-md-9 -->
+    
+      <div class="col-md-3"> 
+          {% from "feed/_feed_messages.html" import render_navigation  %}
+
+          {{ render_navigation(feed_messages, 'home_app.feedPage')}}
+ 
+      
+      </div> <!-- col-md-3 -->
+    
+  </div> <!-- col-md-9 -->
+
+</div> <!-- row -->
+
+
+
+{% endblock %}

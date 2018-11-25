@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+
+{% block title %}Welcome to the Social Network{% endblock %}
+
+{% block header %}<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">{% endblock %}
+
+{% block content %}
+
+{% include "navbar.html" %}
+
+<div class="row">
+
+    <div class="jumbotron home-jumbo">
+      <div class="container">
+        
+        <h1>Meet People The Right Way!</h1>
+        <p>Are you looking for more friends? Search no more, This is a place where you will find other lonely people like yourself!</p>
+        <p><a class="btn btn-primary btn-lg" href="{{ url_for('user_app.login') }}" role="button">Login</a> or <a class="btn btn-primary btn-lg" href="{{ url_for('user_app.register') }}" role="button">Register</a></p>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

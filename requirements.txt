@@ -1,0 +1,12 @@
+Flask
+Flask-Script
+flask-mongoengine
+Flask-WTF
+bcrypt
+blinker
+Wand
+Arrow
+bleach
+flask-mail
+mongoengine
+wand

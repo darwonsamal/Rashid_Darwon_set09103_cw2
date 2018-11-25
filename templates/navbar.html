@@ -1,0 +1,200 @@
+
+
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            {% if session.username %}
+                <a class="navbar-brand" href="{{url_for('home_app.home')}}"><span class="glyphicon glyphicon-home"></span></a>
+                
+            {% endif %}
+                
+          </div>
+      
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            
+           
+            <ul class="nav navbar-nav navbar-right">
+
+                    {% if session.username %}
+
+                    <form method="POST"  class="navbar-form navbar-left" action="{{url_for('search_app.search')}}" role="form" enctype="multipart/form-data">
+                            <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Search" name="search">
+                            </div>
+                           
+                    </form>
+
+                   
+
+                    <li role="presentation" class="dropdown">
+
+                            {% if session['notifications']|length == 0 %}
+                                <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+                                
+                            {% else %}
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            {% endif %}
+                            
+                                Notifications
+
+                                {% if session['notifications'] %}
+                                    <span class="badge">{{ session['notifications']|length }}</span>
+                                {% else %}
+                                    <span class="badge">{{ 0 }}
+                                {% endif %}
+
+                              
+                                
+                                
+
+                            </a>
+
+                            {% for x in session['notifications']%}
+
+                            {% if x.notificationType == "message" %}
+
+
+                            <div class="modal fade" id="{{x.fromUser}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                          <h4 class="modal-title" id="exampleModalLabel">Quick Reply to @{{x.fromUser}}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            {% if error %}
+                                                <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                            {% endif %}
+                                          
+                                        
+                                          <form  method="POST" action="{{ url_for('user_app.send_message_modal')}}" role="form" enctype="multipart/form-data">
+                                            
+
+                                            <div class="form-group">
+                                              <label for="message-text" class="control-label">Message:</label>
+
+                                              <textarea class="form-control" rows="14" name="modalMessage" placeholder="Message"></textarea>
+                            
+                                              <input type="hidden" name="toUser" value="{{x.fromUser}}" />
+                                              
+                                            </div>
+                                          
+                                        </div>
+
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                          <button type="submit" class="btn btn-primary">Send message</button>
+
+                                        </form>
+
+                                        </div>
+                                      </div>
+                                    </div>
+                            </div>
+                            
+                    
+                            
+
+                            {% endif %}
+
+                            {% endfor %}
+                            
+                            <ul class="dropdown-menu">
+    
+                                {% for x in session['notifications']%}
+                                
+                                {% if x.notificationType == "message" %}
+    
+                                <li>
+
+                                        <a href="{{ url_for('user_app.view_messages', username = x.fromUser ) }}">@{{ x.fromUser }} has messaged you! Click here to view</a>
+                                        <!-- Trigger the modal with a button -->
+                                        <div class="btn-group btn-group-notificationMessage" role="group" aria-label="...">
+
+                                                    
+                                                    <button name="notificationMessageButton" value="reply"  type="button" class="btn btn-default"  data-toggle="modal" data-target="#{{x.fromUser}}">Quick Reply</button>
+                                                    <a href="{{ url_for('user_app.dismiss', toUser = x.fromUser) }}">
+                                                            <button name="notificationMessageButton" value="dismiss" type="button" class="btn btn-default"  style="margin: 0 auto;">Dismiss</button>
+                                                    </a>
+                                                                  
+                                                
+                                                
+                                                
+                                        </div>
+                                        <li role="separator" class="divider"></li>      
+
+                                </li>
+
+                               
+                                
+    
+                                {% endif %}
+                                
+                                {% if x.notificationType == "request" %}
+                                
+                                <li>
+                               
+                                        <a href="{{ url_for('user_app.profile', username = x.fromUser ) }}">@{{ x.fromUser }} wants to be your friend!</a>
+
+                                        <a href="{{ url_for('relationship_app.add_friend', to_username=x.fromUser) }}">
+                                            <button class="btn btn-primary" type="button"  style=" margin-left: 20%;">
+                                                   Accept Request <span class="glyphicon glyphicon-user"></span>
+                                            </button>
+                                        </a>
+                                       
+                                        <a href="{{ url_for('relationship_app.remove_friend', to_username=x.fromUser) }}">
+                                                <button class="btn btn-default" type="button"  style="margin-left: 22%;">
+                                                        Deny Request <span class="glyphicon glyphicon-remove"></span>
+                                                 </button>
+                                        </a>      
+                                        
+                                        <li role="separator" class="divider"></li>
+                                       
+                                </li>
+    
+                                {% endif %}                        
+                                {% endfor %}
+                                
+                            </ul>
+                        </li>                 
+                    <li>
+
+              
+                <li role="presentation" class="dropdown">
+
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> @{{session.username}} <span class="glyphicon glyphicon-user"></span> </a>
+                    <ul class="dropdown-menu">      
+                        <li><a href="{{ url_for('user_app.profile', username=session.username) }}">View profile</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="{{ url_for('user_app.edit') }}">Edit profile</a></li>
+                        <li><a href="{{ url_for('user_app.change_password') }}">Change password</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                <a href="{{ url_for('user_app.logout') }}" class="navbar-link">Logout</a></p>
+                </li> 
+                {% else %}
+                <li>
+                <a href="{{ url_for('user_app.login') }}" class="navbar-link">Login</a></p>
+                </li>     
+                <li>
+                <a href="{{ url_for('user_app.register') }}" class="navbar-link">Register</a></p>
+                </li> 
+                {% endif %}
+
+
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+
+     

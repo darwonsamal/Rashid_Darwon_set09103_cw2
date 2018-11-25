@@ -1,0 +1,172 @@
+{% extends "base.html" %} 
+{% from "user/_rel_button.html" import rel_button, rel_js %}
+
+{% block title %}@{{ user.username }} - Profile {% endblock %} 
+
+{% block header %}<link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %} 
+
+{% include "navbar.html" %}
+
+<div class="row">
+
+  <div class="col-md-3">
+
+    <img class="img-thumbnail" src="{{ user.profile_imgsrc('xlg') }}" width="200" height="200" alt="{{ user.username }}">
+
+    <h3 class="profile-fullname">{{ user.first_name }} {{ user.last_name }} </h3>
+    <h3 class="profile-username"><a href="{{ url_for('user_app.profile', username=user.username) }}" >@{{ user.username }}</a></h3>
+
+    {% if user.bio %}
+    <h3>Bio:</h3>
+    <P>{{ user.bio }}</P>
+    {% endif %}
+  </div> 
+  
+  <div class="col-md-9">
+    
+    <div id="friends-toolbar" class="row">
+  
+      <div class="btn-toolbar pull-right" role="toolbar" aria-label="friends-toolbar">
+        <div class="btn-group" role="group" aria-label="friends-toolbar-buttons">
+            {{ rel_button(rel, user) }}
+        </div> 
+      </div> 
+      
+    </div> 
+    
+    <div class="row">
+      
+      {% if not friends_page %}
+      
+      <div class="col-md-9"> 
+      
+        {% if logged_user and (rel == "FRIENDS_APPROVED" or logged_user == user) %}      
+        
+        <div class="row feed-message">
+          {% if error %}
+          <div class="alert alert-danger" role="alert">{{ error }}</div>
+          {% endif %}
+      
+          {% from "_formhelpers.html" import render_field %}
+          <form method="POST" action="{{ url_for('feed_app.add_message')}}" role="form">
+      
+            {{ form.hidden_tag() }}
+      
+            <div class="form-group">
+              {{ form.image(class='form-control') }}
+              <br>
+              {{ form.post(class='form-control', rows=3, placeholder= 'Say something!') }}
+            </div>
+            
+            <input type="hidden" name="toUser" value="{{ user.username }}" />
+            <button type="submit" class="btn btn-primary pull-right">Post</button>
+      
+          </form>
+        </div>
+        
+        {% endif %}
+        
+        {% from "feed/_feed_messages.html" import render_feed_message %}
+        {% for message in profile_messages.items %}
+          {{ render_feed_message(message) }}
+        {% endfor %}
+
+        {% from "feed/_feed_messages.html" import render_navigation_profile  %}
+
+        {% if profile_messages %}
+          {{ render_navigation_profile(profile_messages, 'user_app.viewProfilePage', user.username )}}
+        {% endif %}
+
+        
+        
+      </div>
+    
+      <div class="col-md-3"> 
+       
+
+
+        <h4><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <a href="{{ url_for('.profile-friends', username=user.username) }}">Friends</a> <span class="badge">{{ friends_total }}</span></h4>
+        
+        {% for friend in friends %}
+        <div class="media">
+          <div class="media-left">
+            <a class="img-thumbnail" href="{{ url_for('.profile', username=friend.toUser.username) }}">
+              <img src="{{ friend.toUser.profile_imgsrc('sm') }}" width="50" alt="{{ friend.toUser.username }}">
+            </a>
+          </div>
+          <div class="media-body">
+            <p>{{ friend.toUser.first_name }}<br />
+              <a href="{{ url_for('.profile', username=friend.toUser.username) }}">@{{ friend.toUser.username }}</a>
+            </p>
+          </div>
+        </div> 
+        {% endfor %}
+
+      </div> 
+      
+      {% else %} 
+      
+      <div class="col-md-12"> 
+      
+        <div class="row">
+          
+          {% for friend in friends.items %}
+          
+            <div class="col-md-3 friend-grid-user">
+              <div class="friend-grid-user-image">
+                <a class="img-thumbnail" href="{{ url_for('.profile', username=friend.toUser.username) }}">
+                  <img src="{{ friend.toUser.profile_imgsrc('lg') }}" width="75" alt="{{ friend.toUser.username }}">
+                </a>
+              </div>
+              <div class="friend-grid-user-data">
+                <h4 class="profile-fullname">{{ friend.toUser.first_name }} {{ friend.toUser.last_name }} </h5>
+                <h5 class="profile-username"><a href="{{ url_for('.profile', username=friend.toUser.username) }}">@{{ friend.toUser.username }}</a></h4>
+              </div>
+              <div class="friend-grid-user-friends-button">
+                {{ rel_button(friend.is_friend(logged_user), friend.toUser) }}
+              </div>
+            </div> 
+            
+          {% endfor %}
+          
+        </div> 
+      
+      </div> 
+      
+      <div class="profile-friends-pagination col-md-12"> 
+      
+        <div class="row">
+        
+          <div class="col-md-6 pull-left">
+          {% if friends.has_prev %}
+          <a role="button" class="btn btn-primary" href="{{ url_for('.profile-friends-page', username=user.username, page=friends.prev_num) }}"> < Previous</a>
+          {% endif %}
+          </div> 
+          
+          <div class="col-md-6 pull-right">
+          {% if friends.has_next %}
+          <a class="btn btn-primary" href="{{ url_for('.profile-friends-page', username=user.username, page=friends.next_num) }}">Next ></a>
+          {% endif %}
+          </div> 
+          
+          
+        </div> 
+        
+      </div>
+      
+      {% endif %}
+      
+    </div> 
+    
+  </div> 
+
+</div> 
+{% endblock %}
+
+{% block end_body_js %}
+{{ rel_js() }}
+{% endblock %}
