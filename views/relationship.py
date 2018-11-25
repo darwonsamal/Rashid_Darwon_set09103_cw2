@@ -3,7 +3,7 @@ from flask import Blueprint, abort, session, redirect, url_for, request, render_
 from models.user import User, Notification
 from models.relationship import Relationship
 from utilities.decorator import login_required
-from utilities.common import email
+from utilities.common import email, fetchNotifications
 
 from settings import WEBSITE_ADDRESS
 
@@ -15,16 +15,20 @@ relationship_app = Blueprint('relationship_app', __name__)
 @relationship_app.route('/add_friend/<to_username>')
 @login_required
 def add_friend(to_username):
+
     ref = request.referrer
     logged_user = User.objects.filter(username=session.get('username')).first()
     fetchNotifications(logged_user)
+    fetchNotifications(logged_user)
     toUser = User.objects.filter(username=to_username).first()
+
     if toUser:
+
         rel = Relationship.get_relationship(logged_user, toUser)
         to_username = toUser.username
+
         if rel == "REVERSE_FRIENDS_PENDING":
-            # Check if there's a pending invitation toUser -> fromUser
-            # so then we confirm the friendship
+           
             Relationship(
                 fromUser=logged_user, 
                 toUser=toUser,
@@ -52,7 +56,7 @@ def add_friend(to_username):
             
 
         elif rel == None and rel != "REVERSE_BLOCKED":
-            # Otherwise, just do the initial request
+           
             Relationship(
                 fromUser=logged_user, 
                 toUser=toUser, 
@@ -60,7 +64,7 @@ def add_friend(to_username):
                 status=Relationship.PENDING
                 ).save()
                 
-            # email the user
+           
             body_html = render_template('mail/relationship/added_friend.html', fromUser=logged_user, toUser=toUser, host = WEBSITE_ADDRESS)
             body_text = render_template('mail/relationship/added_friend.txt', fromUser=logged_user, toUser=toUser, host = WEBSITE_ADDRESS)
             email(toUser.email, ("%s has requested to be friends") % logged_user.first_name, body_html, body_text)
@@ -86,6 +90,7 @@ def remove_friend(to_username):
     ref = request.referrer
     logged_user = User.objects.filter(username=session.get('username')).first()
     fetchNotifications(logged_user)
+   
     toUser = User.objects.filter(username=to_username).first()
     if toUser:
         rel = Relationship.get_relationship(logged_user, toUser)
@@ -166,15 +171,3 @@ def unblock(toUsername):
     else:
         abort(404)
 
-
-
-def fetchNotifications(logged_user):
-
-    notifications = Notification.objects.filter(toUser = logged_user.username)
-
-    nlist = []
-
-    for x in notifications:
-        nlist.append(x)
-
-    session['notifications'] = nlist

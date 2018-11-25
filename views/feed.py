@@ -11,7 +11,7 @@ from models.relationship import Relationship
 from forms.feed import FeedPostForm, PrivateMessageForm
 from settings import UPLOAD_FOLDER
 
-from utilities.common import utc_now_ts_ms as now
+from utilities.common import utc_now_ts_ms as now, fetchNotifications
 
 feed_app = Blueprint('feed_app', __name__)
 
@@ -26,6 +26,7 @@ def add_message():
     if form.validate_on_submit():
 
         fromUser = User.objects.get(username=session.get('username'))
+        fetchNotifications(fromUser)
         toUser = User.objects.get(username=request.values.get('toUser'))
       
         image = None 
@@ -118,6 +119,7 @@ def message(message_id, feed_id=None):
     if form.validate_on_submit() and session.get('username'):
       
         fromUser = User.objects.get(username=session.get('username'))
+        fetchNotifications(fromUser)
         post = form.post.data
         
      
@@ -150,6 +152,7 @@ def like_message(message_id):
         abort(404)
         
     fromUser = User.objects.get(username=session.get('username'))
+    fetchNotifications(fromUser)
     
    
     existing_like = Message.objects.filter(
