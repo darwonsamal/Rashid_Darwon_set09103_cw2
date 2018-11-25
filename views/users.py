@@ -482,13 +482,13 @@ def view_messages(username, viewPage = 1):
     fromUser = User.objects.get(username=session.get('username'))
     toUser = User.objects.get(username = username)
 
-    fetchNotifications(fromUser)
+    
 
     privateMessagesList = PrivateMessage.objects.filter(Q(fromUser = fromUser, toUser = toUser) | Q(fromUser = toUser, toUser = fromUser)).order_by('createDate')
 
 
     if '/page' not in request.path:
-        tempList = privateMessagesList.paginate(page = 1, per_page = 10)
+        tempList = privateMessagesList.paginate(page = 1, per_page = 5)
 
         viewPage = tempList.pages
 
@@ -500,7 +500,7 @@ def view_messages(username, viewPage = 1):
 
     print(viewPage)
 
-    privateMessagesList = privateMessagesList.paginate(page = viewPage, per_page = 10)
+    privateMessagesList = privateMessagesList.paginate(page = viewPage, per_page = 5)
 
     print(privateMessagesList.page)
 
@@ -515,6 +515,8 @@ def view_messages(username, viewPage = 1):
         session['notifications'] = nlist
 
         notification.delete()
+
+    fetchNotifications(fromUser)
 
     return render_template('feed/private_message.html', 
         form = form, 
