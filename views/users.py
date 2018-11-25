@@ -483,7 +483,7 @@ def view_messages(username, viewPage = 1):
     fetchNotifications(fromUser)
     toUser = User.objects.get(username = username)
 
-    privateMessagesList = PrivateMessage.objects.filter(Q(fromUser = fromUser, toUser = toUser) | Q(fromUser = toUser, toUser = fromUser)).order_by('createDate')
+    privateMessagesList = PrivateMessage.objects.filter(Q(fromUser = fromUser, toUser = toUser) | Q(fromUser = toUser, toUser = fromUser)).order_by('-createDate')
 
 
     if '/page' not in request.path:
