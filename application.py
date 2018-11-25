@@ -29,7 +29,7 @@ with app.app_context():
     
     # import blueprints
 from views import users
-from users import user_app
+from views.users import user_app
 from views.relationship import relationship_app
 from views.feed import feed_app
 from views.home import home_app
