@@ -12,8 +12,8 @@ from models.user import User, PrivateMessage, Notification
 from relationship import Relationship
 from feed import Message, POST
 from forms import users, feed
-from feed import PrivateMessageForm, FeedPostForm
-from users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
+from forms.feed import PrivateMessageForm, FeedPostForm
+from forms.users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
 from utilities import common, decorator
 from utilities.common import email
 from utilities.decorator import login_required
