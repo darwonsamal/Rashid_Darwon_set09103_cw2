@@ -480,6 +480,7 @@ def view_messages(username, viewPage = 1):
     formModalMessage = PrivateMessageForm()
     
     fromUser = User.objects.get(username=session.get('username'))
+    fetchNotifications(fromUser)
     toUser = User.objects.get(username = username)
 
     
@@ -516,7 +517,7 @@ def view_messages(username, viewPage = 1):
 
         notification.delete()
 
-    fetchNotifications(fromUser)
+    
 
     return render_template('feed/private_message.html', 
         form = form, 
