@@ -16,7 +16,7 @@ MAIL_USE_TLS = True
 MAIL_USE_SSL = False
 UPLOAD_FOLDER = '../static/images/'
 
-WEBSITE_ADDRESS = 'http://localhost:5000'
-ELASTICSEARCH_URL = 'http://localhost:5000'
+WEBSITE_ADDRESS = 'http://set09103.napier.ac.uk:9173'
+
 
 
