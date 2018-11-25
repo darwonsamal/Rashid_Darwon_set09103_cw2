@@ -45,7 +45,7 @@ with app.app_context():
                
                 return self.profile_image
             else:
-                return "static/images/user/no-profile." + size + ".png"
+                return "images/user/no-profile." + size + ".png"
 
         
             
