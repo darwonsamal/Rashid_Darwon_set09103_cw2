@@ -72,7 +72,7 @@ def feedPage(page = 1):
         
         # get user messages
 
-        feed_messages = Feed.objects.filter(user = user).order_by('-create_date')
+        feed_messages = Feed.objects.filter(user = user).order_by('create_date')
 
         page = int(page)
 

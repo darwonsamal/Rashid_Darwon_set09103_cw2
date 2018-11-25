@@ -1,6 +1,6 @@
 SECRET_KEY = 'whatever'
 development = True
-url = 'http://localhost:5000'
+url = 'http://set09103.napier.ac.uk:9173'
 MONGODB_SETTINGS = { 
 
         'db': 'flask',
