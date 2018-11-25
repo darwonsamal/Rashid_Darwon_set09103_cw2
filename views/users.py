@@ -8,15 +8,15 @@ from mongoengine import Q
 
 
 from models import user, relationship, feed
-from user import *
+from models.user import User, PrivateMessage, Notification
 from relationship import Relationship
 from feed import Message, POST
 from forms import users, feed
 from feed import PrivateMessageForm, FeedPostForm
-from users import *
+from users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
 from utilities import common, decorator
-from utilities.common import *
-from utilities.decorator import *
+from utilities.common import email
+from utilities.decorator import login_required
 from settings import UPLOAD_FOLDER, MAIL_USERNAME
 
 import datetime 
