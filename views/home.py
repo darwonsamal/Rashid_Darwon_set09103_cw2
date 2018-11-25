@@ -23,7 +23,7 @@ def home(page = 1):
         
         # get user messages
 
-        feed_messages = Feed.objects.filter(user = user).order_by('-create_date')
+        feed_messages = Feed.objects.filter(user = user).order_by('-createDate')
 
         page = int(page)
 
@@ -57,7 +57,6 @@ def home(page = 1):
 @home_app.route('/feed/<page>', methods = ['GET'])
 def feedPage(page = 1):
 
-    print("yp")
     if session.get('username'):
 
         notificationsList = []
@@ -75,7 +74,6 @@ def feedPage(page = 1):
         feed_messages = Feed.objects.filter(user = user).order_by('-createDate')
 
         page = int(page)
-
 
         feed_messages = feed_messages.paginate(page = page, per_page = 5)
 
