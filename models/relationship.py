@@ -39,6 +39,7 @@ with app.app_context():
         approved_date = db.IntField(db_field="ad", default=0)
         
         def is_friend(self, user):
+
             if user:
                 return self.get_relationship(user, self.toUser)
             else:
@@ -46,29 +47,41 @@ with app.app_context():
 
         @staticmethod
         def get_relationship(fromUser, toUser):
+
             if fromUser == toUser:
                 return 'SAME'
+
             rel = Relationship.objects.filter(
                 fromUser=fromUser, 
                 toUser=toUser
                 ).first()
+
             if rel and rel.rel_type == Relationship.FRIENDS:
+
                 if rel.status == Relationship.PENDING: 
                     return "FRIENDS_PENDING"
+
                 if rel.status == Relationship.APPROVED:
                     return "FRIENDS_APPROVED"
+
             elif rel and rel.rel_type == Relationship.BLOCKED:
                 return "BLOCKED"
+                
             else:
+
                 reverse_rel = Relationship.objects.filter(
                     fromUser=toUser,
                     toUser=fromUser,
                     ).first()
+
                 if reverse_rel and reverse_rel.rel_type == Relationship.FRIENDS:
+
                     if reverse_rel.status == Relationship.PENDING: 
                         return "REVERSE_FRIENDS_PENDING"
+
                 elif reverse_rel and reverse_rel.rel_type == Relationship.BLOCKED: 
                     return "REVERSE_BLOCKED"
+                    
             return None
 
         meta = {

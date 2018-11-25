@@ -9,4 +9,4 @@ Arrow
 bleach
 flask-mail
 mongoengine
-wand
+

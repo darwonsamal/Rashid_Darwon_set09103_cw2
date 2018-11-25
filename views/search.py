@@ -21,13 +21,11 @@ def search():
 
                 users = User.objects.search_text(search)
 
-                
+                postList = []
 
                 print(users)
 
                 posts = Message.objects.search_text(search)
-
-                print(posts)
 
 
                 return render_template('feed/search.html', users = users, posts = posts)
