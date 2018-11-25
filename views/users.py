@@ -392,6 +392,7 @@ def send_message_modal():
 
     ref = request.referrer
 
+
     if request.method == 'POST':
 
             
@@ -406,6 +407,7 @@ def send_message_modal():
                 fromUser = fromUser,
                 toUser = toUser,
                 text = message,
+                createDate = str(now)
 
             ).save()
      

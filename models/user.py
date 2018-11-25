@@ -63,7 +63,7 @@ with app.app_context():
     class PrivateMessage(db.Document):
         fromUser = db.ReferenceField(User, db_field="fu", reverse_delete_rule=CASCADE)
         toUser = db.ReferenceField(User, db_field="tu", default=None, reverse_delete_rule=CASCADE)
-        createDate = db.StringField(db_field="c", default = utc_now_ts_ms())
+        createDate = db.StringField(db_field="c", default = str(utc_now_ts_ms()))
         text = db.StringField(db_field="t", max_length=1024)
 
         @property
