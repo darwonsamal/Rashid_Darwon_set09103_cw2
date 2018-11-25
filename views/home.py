@@ -72,17 +72,14 @@ def feedPage(page = 1):
         
         # get user messages
 
-        feed_messages = Feed.objects.filter(user = user).order_by('create_date')
+        feed_messages = Feed.objects.filter(user = user).order_by('-createDate')
 
         page = int(page)
 
-        print(page )
-        print("yoooo")
 
         feed_messages = feed_messages.paginate(page = page, per_page = 5)
 
-       
-  
+    
         notifications = Notification.objects.filter(toUser = user.username)
         
         if notifications != None:
