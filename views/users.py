@@ -13,7 +13,7 @@ from relationship import Relationship
 from feed import Message, POST
 from forms import users, feed
 from feed import PrivateMessageForm, FeedPostForm
-from users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
+from users import *
 from utilities import common, decorator
 from common import email
 from decorator import login_required
