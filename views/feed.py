@@ -4,7 +4,7 @@ import os
 import uuid
 
 from utilities.decorator import login_required
-from models.user import User
+from models.user import User, Notification
 from models.feed import Message, Feed, POST, COMMENT, LIKE
 from models.relationship import Relationship
 
