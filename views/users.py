@@ -6,15 +6,18 @@ import os
 from werkzeug import secure_filename
 from mongoengine import Q
 
-from models.user import User, PrivateMessage, Notification
-from forms.users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
-from forms.feed import PrivateMessageForm
-from utilities.common import email
+
+from models import user, relationship, feed
+from user import User, PrivateMessage, Notification
+from relationship import Relationship
+from feed import Message, POST
+from forms import users, feed
+from feed import PrivateMessageForm, FeedPostForm
+from users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
+from utilities import common, decorator
+from common import email
+from decorator import login_required
 from settings import UPLOAD_FOLDER, MAIL_USERNAME
-from models.relationship import Relationship
-from utilities.decorator import login_required
-from forms.feed import FeedPostForm
-from models.feed import Message, POST
 
 import datetime 
 
