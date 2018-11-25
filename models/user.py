@@ -3,7 +3,9 @@ import os
 from flask_mongoengine import MongoEngine
 
 
-from utilities import *
+from utilities import common
+
+from utilities.common import *
 
 
 from flask import current_app, Flask, url_for
