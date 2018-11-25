@@ -43,7 +43,7 @@
             <div class="media">
                 <div class="media-left">
                   <a class="img-thumbnail" href="{{ url_for('user_app.profile', username=m.username) }}">
-                    <img src="{{ m.profile_imgsrc('sm') }}" width="50" alt="{{ m.username }}">
+                    <img src="{{ url_for('static', filename =  m.profile_imgsrc('sm') )}}" width="50" alt="{{ m.username }}">
                   </a>
                 </div>
                 <div class="media-body">
