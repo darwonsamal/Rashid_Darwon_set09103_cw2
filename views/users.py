@@ -15,7 +15,7 @@ from forms import users, feed
 from feed import PrivateMessageForm, FeedPostForm
 from users import *
 from utilities import common, decorator
-from common import email
+from utilities.common import *
 from decorator import login_required
 from settings import UPLOAD_FOLDER, MAIL_USERNAME
 
