@@ -47,32 +47,25 @@
                  </li>
                 {% else %}
                 <li class="private-message">
-
-                  <table>
-                    <td>
-                        <div class="private-message-content-left">
-                            <div class="media">
-                                <div class="media-left">
-                                <a class="img-thumbnail" href="{{ url_for('user_app.profile', username=x.fromUser.username) }}">
-                                        <img src="../{{ x.fromUser.profile_imgsrc('sm') }}" width="50" alt="{{ x.fromUser.username }}">
-                                </a>
-                          
-                                  </div>
-                              </div>
-                            </div>
-                    </td>
-                    <td>
-                      <tr>
-                          <p>{{x.text}}
-
-                              <h6 class="pubdate">{{x.createDate}}</h6>
-                            </p>
-
-                      </tr>
-                    </td>
-
-                  </table>
             
+                  <div class="private-message-content-left">
+                      <div class="media">
+                          <div class="media-left">
+                          <a class="img-thumbnail" href="{{ url_for('user_app.profile', username=x.fromUser.username) }}">
+                                  <img src="../{{ x.fromUser.profile_imgsrc('sm') }}" width="50" alt="{{ x.fromUser.username }}">
+                          </a>
+                    
+                    </div>
+                  </div>
+                  
+                  <p>{{x.text}}
+
+                      <h6 class="pubdate">{{x.createDate}}</h6>
+                    </p>
+                  </div>
+
+
+                  
             
                  </li>
                 {% endif %}
