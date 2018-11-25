@@ -35,6 +35,7 @@ def add_message():
             file_path = "static/images/posts/" + str(uuid.uuid4())  + filename 
             form.image.data.save(file_path)
             image = str(file_path)
+            print(image)
   
           
         post = form.post.data
