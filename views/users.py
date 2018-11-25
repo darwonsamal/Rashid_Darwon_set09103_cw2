@@ -8,7 +8,7 @@ from mongoengine import Q
 
 
 from models import user, relationship, feed
-from user import User, PrivateMessage, Notification
+from user import *
 from relationship import Relationship
 from feed import Message, POST
 from forms import users, feed
