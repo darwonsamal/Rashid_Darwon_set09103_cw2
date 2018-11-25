@@ -15,7 +15,7 @@
 
   <div class="col-md-3">
 
-    <img class="img-thumbnail" src="{{ user.profile_imgsrc('xlg') }}" width="200" height="200" alt="{{ user.username }}">
+    <img class="img-thumbnail" src="{{ url_for('static', filename = user.profile_imgsrc('xlg')) }}" width="200" height="200" alt="{{ user.username }}">
 
     <h3 class="profile-fullname">{{ user.first_name }} {{ user.last_name }} </h3>
     <h3 class="profile-username"><a href="{{ url_for('user_app.profile', username=user.username) }}" >@{{ user.username }}</a></h3>
@@ -95,7 +95,7 @@
         <div class="media">
           <div class="media-left">
             <a class="img-thumbnail" href="{{ url_for('.profile', username=friend.toUser.username) }}">
-              <img src="{{ friend.toUser.profile_imgsrc('sm') }}" width="50" alt="{{ friend.toUser.username }}">
+              <img src="{{ url_for('static', filename = friend.toUser.profile_imgsrc('sm')) }}" width="50" alt="{{ friend.toUser.username }}">
             </a>
           </div>
           <div class="media-body">

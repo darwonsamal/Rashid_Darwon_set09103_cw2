@@ -52,7 +52,7 @@
                       <div class="media">
                           <div class="media-left">
                           <a class="img-thumbnail" href="{{ url_for('user_app.profile', username=x.fromUser.username) }}">
-                                  <img src="../{{ x.fromUser.profile_imgsrc('sm') }}" width="50" alt="{{ x.fromUser.username }}">
+                                  <img src="{{ url_for('static', filename = x.fromUser.profile_imgsrc('sm')) }}" width="50" alt="{{ x.fromUser.username }}">
                           </a>
                     
                     </div>
@@ -63,10 +63,7 @@
                       <h6 class="pubdate">{{x.createDate}}</h6>
                     </p>
                   </div>
-
-
-                  
-            
+       
                  </li>
                 {% endif %}
                
@@ -76,15 +73,10 @@
               </div>
         </div>
             
-      
-        
-        
+           
         </div> <!-- row -->
 
-        
-
-
-        
+             
       </div> <!-- col-md-9 -->
 
       {% from "feed/_feed_messages.html" import render_navigation_profile  %}

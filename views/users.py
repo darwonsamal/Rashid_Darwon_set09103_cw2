@@ -184,8 +184,9 @@ def edit():
             image_ts = None
             if request.files.get('image'):
                 filename = secure_filename(form.image.data.filename)
-                file_path = "static/images/user/" + str(user.id) + filename 
-                form.image.data.save(file_path)
+                file_path = "images/user/" + str(uuid.uuid4()) + filename 
+                file_pathB = "static/" + file_path
+                form.image.data.save(file_pathB)
                 image_ts = str(file_path)
 
                 print(image_ts)

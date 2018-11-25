@@ -4,7 +4,7 @@
   <div class="media-left">
 
     <a href="{{ url_for('user_app.profile', username=message.fromUser.username) }}">
-      <img class="media-object" src="../{{ message.fromUser.profile_imgsrc('sm') }}" width="50" height="50" alt="{{ message.fromUser.username }}">
+      <img class="media-object" src=".{{ url_for('static', filename = message.fromUser.profile_imgsrc('sm')) }}" width="50" height="50" alt="{{ message.fromUser.username }}">
     </a>
 
   </div> <!-- media-left -->
@@ -24,7 +24,7 @@
     {% if message.image %}
     <div class="media-images">
 
-        <img class="img-thumbnail" src="../{{ message.post_imgsrc('xlg') }}" width="200" height="200" alt="" />
+        <img class="img-thumbnail" src="{{ url_for('static', filename = message.post_imgsrc('xlg')) }}" width="200" height="200" alt="" />
       
 
     </div>
