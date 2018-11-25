@@ -34,7 +34,7 @@ def add_message():
         if request.files.get('image'):
             filename = secure_filename(form.image.data.filename)
             file_path = "images/posts/" + str(uuid.uuid4())  + filename 
-            file_pathB = "static" + file_path
+            file_pathB = "static/" + file_path
             form.image.data.save(file_pathB)
             image = str(file_path)
             print(image)
