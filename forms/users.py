@@ -6,6 +6,7 @@ from wtforms.validators import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 import re
 
+from models import user
 from models.user import User
 
 class BaseUserForm(FlaskForm):
