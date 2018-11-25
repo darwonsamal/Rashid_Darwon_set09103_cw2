@@ -407,7 +407,7 @@ def send_message_modal():
                 fromUser = fromUser,
                 toUser = toUser,
                 text = message,
-                createDate = str(now)
+                createDateDisplay = str(now)
 
             ).save()
      
@@ -515,8 +515,6 @@ def view_messages(username, viewPage = 1):
 
         notification.delete()
 
-    
-
     return render_template('feed/private_message.html', 
         form = form, 
         user = fromUser, 
@@ -531,6 +529,7 @@ def clear_chat(username):
     ref = request.referrer
 
     fromUser = User.objects.get(username=session.get('username'))
+
     toUser = User.objects.get(username = username)
 
     fetchNotifications(fromUser)

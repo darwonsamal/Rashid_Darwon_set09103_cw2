@@ -64,6 +64,7 @@ with app.app_context():
         fromUser = db.ReferenceField(User, db_field="fu", reverse_delete_rule=CASCADE)
         toUser = db.ReferenceField(User, db_field="tu", default=None, reverse_delete_rule=CASCADE)
         createDate = db.StringField(db_field="c", default = str(utc_now_ts_ms()))
+        createDateDisplay = db.StringField(db_field="cd", default = str(utc_now_ts_ms()))
         text = db.StringField(db_field="t", max_length=1024)
 
         @property
