@@ -41,15 +41,3 @@ with app.app_context():
         msg.body = bodyText
         msg.html = bodyHtml
         mail.send(msg)
-
-
-def fetchNotifications(logged_user):
-
-    notifications = Notification.objects.filter(toUser = logged_user.username)
-
-    nlist = []
-
-    for x in notifications:
-        nlist.append(x)
-
-    session['notifications'] = nlist

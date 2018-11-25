@@ -15,7 +15,7 @@ from forms import users, feed
 from forms.feed import PrivateMessageForm, FeedPostForm
 from forms.users import RegisterForm, LoginForm, EditForm, ForgotForm, PasswordResetForm
 from utilities import common, decorator
-from utilities.common import email, fetchNotifications
+from utilities.common import email
 from utilities.decorator import login_required
 from settings import UPLOAD_FOLDER, MAIL_USERNAME
 
@@ -539,9 +539,6 @@ def clear_chat(username):
     privateMessagesList.delete()
 
 
-
-
-
 def sortList(privateMessages):
     tupleList = []
 
@@ -572,3 +569,14 @@ def fetchPrivateMessages(fromUser, toUser):
 
     return privateMessages
 
+
+def fetchNotifications(logged_user):
+
+    notifications = Notification.objects.filter(toUser = logged_user.username)
+
+    nlist = []
+
+    for x in notifications:
+        nlist.append(x)
+
+    session['notifications'] = nlist

@@ -3,7 +3,7 @@ from flask import Blueprint, abort, session, redirect, url_for, request, render_
 from models.user import User, Notification
 from models.relationship import Relationship
 from utilities.decorator import login_required
-from utilities.common import email, fetchNotifications
+from utilities.common import email
 
 from settings import WEBSITE_ADDRESS
 
@@ -19,7 +19,7 @@ def add_friend(to_username):
     ref = request.referrer
     logged_user = User.objects.filter(username=session.get('username')).first()
     fetchNotifications(logged_user)
-    fetchNotifications(logged_user)
+    
     toUser = User.objects.filter(username=to_username).first()
 
     if toUser:
@@ -171,3 +171,14 @@ def unblock(toUsername):
     else:
         abort(404)
 
+
+def fetchNotifications(logged_user):
+
+    notifications = Notification.objects.filter(toUser = logged_user.username)
+
+    nlist = []
+
+    for x in notifications:
+        nlist.append(x)
+
+    session['notifications'] = nlist

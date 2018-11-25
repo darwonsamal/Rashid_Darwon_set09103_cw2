@@ -11,7 +11,7 @@ from models.relationship import Relationship
 from forms.feed import FeedPostForm, PrivateMessageForm
 from settings import UPLOAD_FOLDER
 
-from utilities.common import utc_now_ts_ms as now, fetchNotifications
+from utilities.common import utc_now_ts_ms as now
 
 feed_app = Blueprint('feed_app', __name__)
 
@@ -171,8 +171,6 @@ def like_message(message_id):
     return redirect(url_for('feed_app.message', message_id=message.id))
 
 
-
-
 def process_message(message):
     
     
@@ -193,3 +191,16 @@ def process_message(message):
             ).save()
     
     return True
+
+
+
+def fetchNotifications(logged_user):
+
+    notifications = Notification.objects.filter(toUser = logged_user.username)
+
+    nlist = []
+
+    for x in notifications:
+        nlist.append(x)
+
+    session['notifications'] = nlist
