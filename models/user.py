@@ -2,8 +2,9 @@ from mongoengine import signals, CASCADE
 import os
 from flask_mongoengine import MongoEngine
 
-from utilities.common import utc_now_ts as now, linkify, ms_stamp_humanize, utc_now_ts_ms as mNow
 
+from utilities import common
+from common import utc_now_ts as now, linkify, ms_stamp_humanize, utc_now_ts_ms as mNow
 
 from flask import current_app, Flask, url_for
 
