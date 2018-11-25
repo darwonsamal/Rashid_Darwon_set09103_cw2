@@ -51,7 +51,7 @@
                   <div class="private-message-content-left">
                       <div class="media">
                           <div class="media-left">
-                          <a class="img-thumbnail" href="{{ url_for('user_app.profile', username=x.fromUser.username) }}">
+                          <a class="img-thumbnail" href="../{{ url_for('user_app.profile', username=x.fromUser.username) }}">
                                   <img src="{{ x.fromUser.profile_imgsrc('sm') }}" width="50" alt="{{ x.fromUser.username }}">
                           </a>
                     
