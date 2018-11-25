@@ -4,7 +4,7 @@ from flask_mongoengine import MongoEngine
 
 
 from utilities import common
-#from common import utc_now_ts as now, linkify, ms_stamp_humanize, utc_now_ts_ms as mNow
+from common import utc_now_ts, linkify, ms_stamp_humanize, utc_now_ts_ms
 
 from flask import current_app, Flask, url_for
 
@@ -25,7 +25,7 @@ with app.app_context():
         first_name = db.StringField(db_field="fn", max_length=50)
         last_name = db.StringField(db_field="ln", max_length=50)
         bio = db.StringField(db_field="bio", max_length=160)
-        created = db.IntField(db_field="c", default=now())
+        created = db.IntField(db_field="c", default= utc_now_ts())
         email_confirmed = db.BooleanField(db_field="ecf", default=False)
         change_configuration = db.DictField(db_field="cc")
         profile_image = db.StringField(db_field="i", default=None)
@@ -61,7 +61,7 @@ with app.app_context():
     class PrivateMessage(db.Document):
         fromUser = db.ReferenceField(User, db_field="fu", reverse_delete_rule=CASCADE)
         toUser = db.ReferenceField(User, db_field="tu", default=None, reverse_delete_rule=CASCADE)
-        createDate = db.StringField(db_field="c", default = mNow())
+        createDate = db.StringField(db_field="c", default = utc_now_ts_ms())
         text = db.StringField(db_field="t", max_length=1024)
 
         @property
