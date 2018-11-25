@@ -483,8 +483,6 @@ def view_messages(username, viewPage = 1):
     fetchNotifications(fromUser)
     toUser = User.objects.get(username = username)
 
-    
-
     privateMessagesList = PrivateMessage.objects.filter(Q(fromUser = fromUser, toUser = toUser) | Q(fromUser = toUser, toUser = fromUser)).order_by('createDate')
 
 
@@ -530,6 +528,8 @@ def view_messages(username, viewPage = 1):
 @user_app.route('/clearChat/<username>')
 def clear_chat(username):
 
+    ref = request.referrer
+
     fromUser = User.objects.get(username=session.get('username'))
     toUser = User.objects.get(username = username)
 
@@ -538,6 +538,11 @@ def clear_chat(username):
     privateMessagesList = PrivateMessage.objects.filter(Q(fromUser = fromUser, toUser = toUser) | Q(fromUser = toUser, toUser = fromUser)).order_by('createDate')
 
     privateMessagesList.delete()
+
+
+    return redirect(ref)
+
+
 
 
 def sortList(privateMessages):
