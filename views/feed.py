@@ -36,8 +36,10 @@ def add_message():
             form.image.data.save(file_path)
             image = str(file_path)
             print(image)
-  
-          
+            print("Image gotten")
+
+        print("AfterImage")
+        print(image)
         post = form.post.data
 
         if toUser == fromUser:
