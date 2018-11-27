@@ -119,7 +119,7 @@
             <div class="col-md-3 friend-grid-user">
               <div class="friend-grid-user-image">
                 <a class="img-thumbnail" href="{{ url_for('.profile', username=friend.toUser.username) }}">
-                  <img src="{{ friend.toUser.profile_imgsrc('lg') }}" width="75" alt="{{ friend.toUser.username }}">
+                  <img src="{{ url_for('static', filename = friend.toUser.profile_imgsrc('lg')) }}" width="75" alt="{{ friend.toUser.username }}">
                 </a>
               </div>
               <div class="friend-grid-user-data">
