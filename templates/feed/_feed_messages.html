@@ -4,7 +4,7 @@
   <div class="media-left">
 
     <a href="{{ url_for('user_app.profile', username=message.fromUser.username) }}">
-      <img class="media-object" src=".{{ url_for('static', filename = message.fromUser.profile_imgsrc('sm')) }}" width="50" height="50" alt="{{ message.fromUser.username }}">
+      <img class="media-object" src="{{ url_for('static', filename = message.fromUser.profile_imgsrc('sm')) }}" width="50" height="50" alt="{{ message.fromUser.username }}">
     </a>
 
   </div> <!-- media-left -->
